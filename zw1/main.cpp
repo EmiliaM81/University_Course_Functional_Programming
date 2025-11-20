@@ -116,17 +116,24 @@ void map (int* in, int* out, int n, std::function<int(int)>f)
 //dokonczyc
 void filter (int* in, int* out, int n, std::function<bool(int)>f)
 {
+    int j = 0;
     for (int i=0; i<n; i++)
     {
-        out[i] = f(in[i]);
-    }  
+        if(f(in[i]))
+            out[j++] = in[i];
+    }
 }
+
 
 
 //dokonczyc
 void reduce (int* in, int n, std::function<int(int,int)>f)
 {
-
+    if(n < 1) return;
+    int acc = in[0];
+    for(int i=1; i<n; i++)
+        acc = f(acc, in[i]);
+    std::cout << acc << '\n';
 }
 
 

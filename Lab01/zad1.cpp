@@ -70,21 +70,19 @@ bool czy_jest(int *begin, int* past_end, int value)
 
 bool czy_jest1(int *begin, int* past_end, std::function<bool (int)>f)
 {
-  
-
-   int len = past_end - begin;
-
-    for (int i=0; i<len; i++)
+    if(begin == past_end)
     {
-        if (f(begin[i]))
-        {
-            std::cout << "W podanej tablicy znajduje się element wiekszy niz 5\n";
-            return true;
-        }
+        std::cout << "W podanej tablicy nie znajduje się element wiekszy niz 5\n";
+        return false;
     }
 
-    std::cout << "W podanej tablicy nie znajduje się element wiekszy niz 5\n";
-    return false;
+    if(f(*begin))
+    {
+        std::cout << "W podanej tablicy znajduje się element wiekszy niz 5\n";
+        return true;
+    }
+
+    return czy_jest1(begin + 1, past_end, f);
 }
 
 int czy_jest2(int *begin, int* past_end, std::function<bool (int)>f, int buff)
